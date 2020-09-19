@@ -8,9 +8,9 @@ from model import create_model
 from data import get_nyu_train_test_data, get_unreal_train_test_data
 from callbacks import get_nyu_callbacks
 
-from keras.optimizers import Adam
-from keras.utils import multi_gpu_model
-from keras.utils.vis_utils import plot_model
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.utils import multi_gpu_model
+from tensorflow.keras.utils import plot_model
 
 # Argument Parser
 parser = argparse.ArgumentParser(description='High Quality Monocular Depth Estimation via Transfer Learning')
@@ -57,7 +57,7 @@ if True:
     with open(runPath+'/'+__file__, 'w') as training_script: training_script.write(training_script_content)
 
     # Generate model plot
-    plot_model(model, to_file=runPath+'/model_plot.svg', show_shapes=True, show_layer_names=True)
+    # plot_model(model, to_file=runPath+'/model_plot.svg', show_shapes=True, show_layer_names=True)
 
     # Save model summary to file
     from contextlib import redirect_stdout
@@ -84,7 +84,7 @@ if args.data == 'nyu': callbacks = get_nyu_callbacks(model, basemodel, train_gen
 if args.data == 'unreal': callbacks = get_nyu_callbacks(model, basemodel, train_generator, test_generator, load_test_data() if args.full else None , runPath)
 
 # Start training
-model.fit_generator(train_generator, callbacks=callbacks, validation_data=test_generator, epochs=args.epochs, shuffle=True)
+model.fit(train_generator, callbacks=callbacks, validation_data=test_generator, epochs=args.epochs, shuffle=True)
 
 # Save the final trained model:
 basemodel.save(runPath + '/model.h5')

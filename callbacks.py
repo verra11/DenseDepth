@@ -3,8 +3,8 @@ import random
 import numpy as np
 from PIL import Image
 
-import keras
-from keras import backend as K
+import tensorflow.keras
+from tensorflow.keras import backend as K
 from utils import DepthNorm, predict, evaluate
 
 import tensorflow as tf
@@ -22,7 +22,7 @@ def get_nyu_callbacks(model, basemodel, train_generator, test_generator, test_se
     callbacks = []
 
     # Callback: Tensorboard
-    class LRTensorBoard(keras.callbacks.TensorBoard):
+    class LRTensorBoard(tensorflow.keras.callbacks.TensorBoard):
         def __init__(self, log_dir):
             super().__init__(log_dir=log_dir)
 
@@ -76,11 +76,11 @@ def get_nyu_callbacks(model, basemodel, train_generator, test_generator, test_se
     callbacks.append( LRTensorBoard(log_dir=runPath) )
 
     # Callback: Learning Rate Scheduler
-    lr_schedule = keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.7, patience=5, min_lr=0.00009, min_delta=1e-2)
+    lr_schedule = tensorflow.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.7, patience=5, min_lr=0.00009, min_delta=1e-2)
     callbacks.append( lr_schedule ) # reduce learning rate when stuck
 
     # Callback: save checkpoints
-    callbacks.append(keras.callbacks.ModelCheckpoint(runPath + '/weights.{epoch:02d}-{val_loss:.2f}.hdf5', monitor='val_loss', 
+    callbacks.append(tensorflow.keras.callbacks.ModelCheckpoint(runPath + '/weights.{epoch:02d}-{val_loss:.2f}.hdf5', monitor='val_loss', 
         verbose=1, save_best_only=False, save_weights_only=False, mode='min', period=5))
 
     return callbacks
