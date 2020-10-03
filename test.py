@@ -46,8 +46,8 @@ cv2.waitKey(0)
 #matplotlib.use('TkAgg')   
 
 # Display results
-viz = display_images(outputs.copy(), inputs.copy())
-plt.figure(figsize=(10,5))
-plt.imshow(viz)
-plt.savefig('test.png')
-plt.show()
+# viz = display_images(outputs.copy(), inputs.copy())
+# plt.figure(figsize=(10,5))
+# plt.imshow(viz)
+# plt.savefig('test.png')
+# plt.show()

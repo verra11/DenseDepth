@@ -1,7 +1,7 @@
 import os, sys, glob, time, pathlib, argparse
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '5'
 
-# Kerasa / TensorFlow
+# Keras / TensorFlow
 from loss import depth_loss_function
 from utils import predict, save_images, load_test_data
 from model import create_model
