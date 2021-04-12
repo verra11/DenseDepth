@@ -5,3 +5,6 @@
 /.vscode
 *.jpg
 *.obj
+*.mp4
+*.weights
+traffic*
